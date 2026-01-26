@@ -1,3 +1,22 @@
 #ссылки на источники
 https://stackoverflow.com/questions/23497444/how-to-make-a-sudoku-grid-using-html-and-css
 https://pypi.org/project/py-sudoku/
+
+пояснение к html 19-42 строки:
+https://proglib.io/p/rukovodstvo-dlya-nachinayushchih-po-shablonam-jinja-v-flask-2022-09-05
+{% for %}, {% endfor %} и {% if %}, {% else %}, {% endif %}
+
+источник к функции js 40-59 строки:
+https://stackoverflow.com/questions/29775797/fetch-post-json-data
+
+источник к функции js 61-78 строки:
+https://stackoverflow.com/questions/29775797/fetch-post-json-data
+
+источник к функции js 68-76 строки:
+https://stackoverflow.com/questions/62975985/change-text-color-using-if-else-in-javascript
+
+источник к css:
+https://stackoverflow.com/questions/23497444/how-to-make-a-sudoku-grid-using-html-and-css
+
+источник к функции python 50-59 строки:
+https://stackoverflow.com/questions/17605898/sudoku-checker-in-python
