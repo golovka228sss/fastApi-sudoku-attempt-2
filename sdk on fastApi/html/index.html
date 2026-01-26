@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <title>Sudoku</title>
+        <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <h1>Судоку</h1>
+
+
+        
+        <div class="controls">
+            <form action="/new_game" method="post"> <button  type="submit">Новая игра</button></form>
+            <button onclick="checkSolution()">Проверить решение</button>
+            <form action="/view_solution" method="post"> <button  type="submit">Показать решение</button></form>
+        </div>
+        <table id="grid" border="0.5" style="border-collapse: collapse;">
+                    {% for row in range(9) %}
+                        <tr class="row">
+                            {% for colum in range(9) %}
+                                {% if puzzle.board[row][colum] == None%}
+                                    <td class="cell"><input type="text" maxlength="1" data-row="{{row}}" data-colum="{{colum}}" oninput="sendCell(this); this.value = this.value.replace(/[^1-9]/g, '')"></td>
+                                {% else %}
+                                    <td class="cell disabled_sell"><input type="text"   value="{{ puzzle.board[row][colum] }}" maxlength="1" data-row="{{row}}" data-colum="{{colum}}" oninput="sendCell(this); this.value = this.value.replace(/[^1-9]/g, '')" readonly></td>
+                                {% endif %}
+                             {% endfor %}
+                        </tr>
+                    {% endfor %}
+
+        </table>
+
+
+        <div id="board"></div>
+        
+
+        <p id="result"></p>
+        <script>
+            function sendCell(input) {
+                const row = input.dataset.row;
+                const colum = input.dataset.colum;
+                const value = input.value;
+                console.log("sendCell вызван!", row, colum, value);
+            
+                fetch("/check", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        row: row,
+                        colum: colum,
+                        value: value
+                    })
+                })
+                .then(r => r.json())
+                .then(data => console.log("Ответ сервера:", data));
+            }
+           
+            function checkSolution() {
+                fetch("/check_solution", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" }
+                })
+                .then(r => r.json())
+                .then(data => {
+                    const result = document.getElementById("result");
+                
+                    if (data.correct) {
+                        result.textContent = "Решение правильное!";
+                        result.style.color = "green";
+                    } else {
+                        result.textContent = "Есть ошибки!";
+                        result.style.color = "red";
+                    }
+                });
+            }
+
+
+        </script>
+
+
+    </body>
+    
+</html>
